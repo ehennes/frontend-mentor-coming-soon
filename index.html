@@ -26,16 +26,21 @@
     }
 
     header {
+      background: transparent;
       padding: 30px 100px;
       position: fixed;
       transition: all ease 0.3s;
       width: calc(60% - 200px);
       z-index: 5;
-    }
 
-    header .logo {
-      margin: 0 auto;
-      max-width: 45ch;
+      &.add-bg-color {
+        background: #fff;
+      }
+
+      .logo {
+        margin: 0 auto;
+        max-width: 45ch;
+      }
     }
 
     main {
@@ -44,28 +49,47 @@
       justify-content: space-between;
       min-height: 700px;
       position: relative;
+
+      &:before {
+        content: '';
+        background-image: 
+          url('./images/bg-pattern-desktop.svg'), 
+          linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 100%, 98%));
+        background-repeat: no-repeat;
+        background-size: cover;
+        left: 0;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        width: 60vw;
+        z-index: -1;
+      }
     }
 
-    main:before {
-      content: '';
-      background-image: 
-        url('./images/bg-pattern-desktop.svg'), 
-        linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 100%, 98%));
-      background-repeat: no-repeat;
-      background-size: cover;
-      left: 0;
-      position: absolute;
-      height: 100%;
-      top: 0;
-      width: 60vw;
-      z-index: -1;
+    .splash-content {
+      align-self: center;
+      flex-basis: 60%;
+      margin: 0 auto;
+      max-width: 45ch;
+      padding: 50px 100px;
+    }
+
+    .splash-image {
+      flex-basis: 40%;
+      flex-shrink: 0;
+
+      img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+      }
     }
 
     h1 {
       color: var(--dark-red);
       font-size: clamp(32px, 5vw, 65px);
       font-weight: 400;
-      letter-spacing: 3px;
+      letter-spacing: 10px;
       line-height: 1.2;
       margin: 0 0 25px;
       text-transform: uppercase;
@@ -81,27 +105,10 @@
     a {
       color: #fff;
       transition: all ease 0.3s;
-    }
 
-    a:hover {
-      color: var(--dark-red);
-    }
-
-    label {
-      bottom: -60%;
-      color: var(--red);
-      display: none;
-      font-size: 16px;
-      left: 30px;
-      position: absolute;
-    }
-
-    .splash-content {
-      align-self: center;
-      flex-basis: 60%;
-      margin: 0 auto;
-      max-width: 45ch;
-      padding: 50px 100px;
+      &:hover, &:active {
+        color: var(--dark-red);
+      }
     }
 
     .thin-text {
@@ -114,43 +121,67 @@
       margin-top: 30px;
       position: relative;
       width: 90%;
-    }
 
-    form input {
-      background: transparent;
-      border: 1px solid var(--light-red);
-      border-radius: 25px;
-      color: var(--dark-red);
-      font-size: 16px;
-      padding: 15px 75px 15px 30px;
-      font-family: 'Josefin Sans', sans-serif;
-      width: 100%;
-    }
+      input {
+        background: transparent;
+        border: 1px solid var(--light-red);
+        border-radius: 25px;
+        color: var(--dark-red);
+        font-size: 16px;
+        padding: 15px 75px 15px 30px;
+        font-family: 'Josefin Sans', sans-serif;
+        width: 100%;
 
-    form input::placeholder {
-      color: var(--light-red);
-    }
+        &::placeholder {
+          color: var(--light-red);
+        }
 
-    form input:focus-visible {
-      border-color: var(--dark-red);
-      outline: none;
-    }
+        &:focus-visible {
+          border-color: var(--dark-red);
+          outline: none;
+        }
+      }
 
-    form button {
-      background: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
-      border: 1px solid transparent;
-      border-radius: 25px;
-      box-shadow: hsl(0, 36%, 70%) 0px 8px 24px;
-      height: 100%;
-      padding: 15px 40px;
-      position: absolute;
-      right: 0;
-      transform: translate3d(25%, 0, 0);
-    }
+      button {
+        background: transparent;
+        border: 2px solid transparent;
+        border-radius: 25px;
+        box-shadow: hsl(0, 36%, 70%) 0px 8px 24px;
+        height: 100%;
+        padding: 15px 40px;
+        position: absolute;
+        right: 0;
+        transform: translate3d(25%, 0, 0);
 
-    form button:hover {
-      background: hsl(0, 80%, 86%);
-      cursor: pointer;
+        &:before {
+          background: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 74%, 74%));
+          border-radius: 25px;
+          content: '';
+          height: calc(100% + 4px);
+          left: -2px;
+          position: absolute;
+          top: -2px;
+          transition: background ease 0.3s;
+          width: calc(100% + 4px);
+          z-index: -1;
+        }
+
+        &:hover, &:active {
+          cursor: pointer;
+
+          &:before {
+            background: linear-gradient(135deg, hsl(0, 80%, 86%), hsl(0, 80%, 86%));
+          }
+        }
+
+        &:focus-visible {
+          outline: none;
+
+          &:before {
+            border: 1px solid var(--dark-red);
+          }
+        }
+      }
     }
 
     .error-icon {
@@ -161,26 +192,78 @@
       transform: translate3d(0, -50%, 0);
     }
 
-    .splash-image {
-      flex-basis: 40%;
-      flex-shrink: 0;
-    }
+    label {
+      display: none;
+      font-size: 16px;
+      height: auto;
+      left: 30px;
+      position: absolute;
 
-    .splash-image img {
-      height: 100%;
-      object-fit: cover;
-      width: 100%;
+      &.error-msg {
+        bottom: -80%;
+        color: var(--red);
+      }
+
+      &.success-msg {
+        bottom: -100%;
+        color: var(--light-red);
+      }
     }
 
     footer {
       background-color: var(--red);
       padding: 10px;
       text-align: center;
+
+      small {
+        color: #fff;
+      }
     }
 
-    footer small {
-      color: #fff;
+    /* media queries */
+    @media only screen and (max-width: 800px) {
+      header {
+        background: #fff;
+        padding: 30px;
+        width: 100%;
+
+        .logo {
+          margin: 0;
+          max-width: 100%;
+        }
+      }
+
+      main {
+        flex-direction: column-reverse;
+        height: 100%;
+        justify-content: start;
+        padding-top: 95px;
+
+        &:before {
+          display: none;
+        }
+      }
+
+      .splash-content {
+        background: linear-gradient(135deg, hsl(0, 0%, 100%), hsl(0, 100%, 98%));
+        max-width: 100%;
+        padding: 70px 30px;
+        text-align: center;
+      }
+
+      form {
+        width: calc(100% - 25px);
+
+        .error-msg,
+        .success-msg {
+          font-size: 14px;
+          left: 50%;
+          transform: translate3d(-50%, 0, 0);
+          width: 100%;
+        }
+      }
     }
+    
   </style>
 </head>
 <body>
@@ -199,17 +282,22 @@
           Add your email below to stay up-to-date with announcements and our launch deals.
         </p>
       </div>
-      <form action="/">
+      <form>
         <input type="email" name="email" placeholder="Email Address" aria-label="email address">
         <img src="./images/icon-error.svg" alt="exclamation point" class="error-icon"></img>
-        <label for="email">Please provide a valid email</label>
-        <button type="submit" aria-label="submit form">
+        <button type="submit" aria-label="submit form" onclick="validateForm(event)">
           <img src="./images/icon-arrow.svg" alt="Right arrow">
         </button>
+        <label class="error-msg" for="email">Please provide a valid email</label>
+        <label class="success-msg" for="email">Thanks! You've been added to our email list.</label>
       </form>
     </div>
     <div class="splash-image">
-      <img src="./images/hero-desktop.jpg" alt="Model standing in front of plant and posing while wearing Base Apparel clothing.">
+      <picture>
+        <source media="(max-width:800px)" srcset="./images/hero-mobile.jpg">
+        <source media="(min-width:801px)" srcset="./images/hero-desktop.jpg">
+        <img src="./images/hero-desktop.jpg" alt="Model standing in front of plant and posing while wearing Base Apparel clothing.">
+      </picture>
     </div>
   
   </main>
@@ -222,13 +310,36 @@
   </footer>
 
   <script>
+    // add background to header on page scroll 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 10) {
-        document.querySelector('header').style.backgroundColor = '#fff';
+        document.querySelector('header').classList.add('add-bg-color');
       } else {
-        document.querySelector('header').style.backgroundColor = 'transparent';
+        document.querySelector('header').classList.remove('add-bg-color');
       }
     });
+
+    // check if email is valid 
+    const validateForm = (event) => {
+      event.preventDefault();
+
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i;
+      const userEmail = document.querySelector('form input[type="email"]');
+
+      if (emailPattern.test(userEmail.value)) {
+        document.querySelector('.success-msg').style.display = 'block';
+
+        document.querySelector('.error-msg').style.display = 'none';
+        document.querySelector('.error-icon').style.display = 'none';
+
+        userEmail.value = '';
+      } else {
+        document.querySelector('.error-msg').style.display = 'block';
+        document.querySelector('.error-icon').style.display = 'block';
+
+        document.querySelector('.success-msg').style.display = 'none';
+      }
+    }
   </script>
 </body>
 </html>
